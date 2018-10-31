@@ -1,6 +1,7 @@
 # How to run this app
 in terminal on your mac
 * cd path/to/directory/
+* unzip ScholarHighPrototype1.xcodeproj.zip 
 * pod install
 * open ScholarHighPrototype1.xcworkspace
 
