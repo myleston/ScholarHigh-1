@@ -14,7 +14,7 @@ I'll fix this part by Sunday. Be patient.
 
 I hope you propose good ideas about additional functions.
 
-# Using Modules
+# Modules
 For database and authentication,
 
 * firebase (https://firebase.google.com/docs/ios/setup)
