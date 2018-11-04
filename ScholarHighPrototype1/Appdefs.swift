@@ -108,17 +108,20 @@ struct Message: MessageType {
     init?(document: QueryDocumentSnapshot) {
         let data = document.data()
         
-        guard let senderId = data["senderId"] as? String,
-            let senderDisplayName =  data["senderDisplayName"] as? String else {
+        guard let senderId = data["senderID"] as? String,
+        let displayName =  data["senderName"] as? String else {
+            print("displayName fail")
             return nil
         }
-        guard let time = data["sentDate"] as? Timestamp else {
+        guard let time = data["created"] as? Timestamp else {
+            print("time fail")
             return nil
         }
         guard let content = data["content"] as? String else {
+            print("content fail")
             return nil
         }
-         self.sender = Sender(id: senderId, displayName: senderDisplayName)
+         self.sender = Sender(id: senderId, displayName: displayName)
         self.sentDate = time.dateValue()
         self.content = content
         self.messageId = document.documentID

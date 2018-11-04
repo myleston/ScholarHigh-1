@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Eyp-cH-e67">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Eyp-cH-e67">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -73,31 +73,31 @@
                     <connections>
                         <outlet property="classNameBar" destination="p6D-hI-eA8" id="0tG-ip-iyM"/>
                         <outlet property="classView" destination="Tm7-0L-4Bo" id="rDr-To-aZd"/>
-                        <segue destination="cLG-6i-BUT" kind="show" identifier="toRoom" id="WYv-is-mB3"/>
+                        <segue destination="4Ya-sy-3d6" kind="push" identifier="toRoom" id="e8b-uO-tJa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ndb-8e-x4U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055.2" y="93.103448275862078"/>
+            <point key="canvasLocation" x="1590" y="91"/>
         </scene>
-        <!--Title-->
-        <scene sceneID="fRC-1x-SRe">
+        <!--Room Controller-->
+        <scene sceneID="nhn-U8-EQU">
             <objects>
-                <viewController id="cLG-6i-BUT" customClass="RoomController" customModule="ScholarHighPrototype1" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="l0g-2l-eja">
+                <viewController id="4Ya-sy-3d6" customClass="RoomController" customModule="ScholarHighPrototype1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="98e-A3-pBy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="nDd-Yk-uJc"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="CLI-vq-mlf"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="sbC-bO-dOC"/>
+                    <navigationItem key="navigationItem" id="A7v-0Z-Bzy"/>
                     <connections>
-                        <outlet property="roomNameBar" destination="sbC-bO-dOC" id="T9P-2F-n1o"/>
+                        <outlet property="roomNameBar" destination="A7v-0Z-Bzy" id="ILS-JY-Lbj"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cRH-0I-PY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ps2-kR-kPD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892" y="92.203898050974516"/>
+            <point key="canvasLocation" x="2414" y="92"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r4A-dD-wTm">
@@ -117,7 +117,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="k4O-79-FuT" kind="relationship" relationship="rootViewController" id="LRn-nP-q8n"/>
+                        <segue destination="k4O-79-FuT" kind="relationship" relationship="rootViewController" id="GT8-7N-Yuk"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RBn-zM-xYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,7 +12,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 
-class RoomController: MessagesViewController {
+final class RoomController: MessagesViewController {
     
     let schoolName = "ynu"
     var thisClass: Class?
@@ -29,38 +29,59 @@ class RoomController: MessagesViewController {
     var messageListener: ListenerRegistration?
     var user: User!
     
+    deinit {
+        messageListener?.remove()
+    }
+    
+    
+    
+    
     @IBOutlet weak var roomNameBar: UINavigationItem!
     override func viewDidLoad() {
+    
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        roomNameBar.title = room?.title
+        
+    
+        roomNameBar.title = self.room?.title
         
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
         db.settings = settings
         
+        messageInputBar.delegate = self
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+     
+        
         guard let roomRef = roomRef else {
             return
         }
+        
         messageListener = roomRef.addSnapshotListener { querySnapshot, error in
+          
             guard let snapshot = querySnapshot else {
                 print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
                 return
             }
-            
+           
             snapshot.documentChanges.forEach { change in
-                print(change.document.data())
+            
                 self.handleDocumentChange(change)
             }
             
         }
+        
     }
         
     func handleDocumentChange(_ change: DocumentChange) {
         guard let message = Message(document: change.document) else {
+            
             return
         }
+        print(message.kind)
         
         switch change.type {
             case .added:
@@ -76,10 +97,10 @@ class RoomController: MessagesViewController {
         guard !messages.contains(message) else {
             return
         }
-        
+        print(message)
         messages.append(message)
         messages.sort()
-        
+     
         let isLatestMessage = messages.index(of: message) == (messages.count - 1)
         let shouldScrollToBottom = messagesCollectionView.isAtBottom && isLatestMessage
         
@@ -113,9 +134,7 @@ extension RoomController: MessagesDisplayDelegate {
         return isFromCurrentSender(message: message) ? .primary : .incomingMessage
     }
     
-    func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool {
-        return false
-    }
+    
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
@@ -128,17 +147,13 @@ extension RoomController: MessagesDisplayDelegate {
 
 extension RoomController: MessagesLayoutDelegate {
     
-    func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
-        return .zero
+    
+    func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 15
     }
     
-    func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
-        return CGSize(width: 0, height: 8)
-    }
-    
-    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        
-        return 0
+    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 15
     }
     
 }
@@ -160,10 +175,25 @@ extension RoomController: MessagesDataSource {
         return messages[indexPath.section]
     }
     
-    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    
+    func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let name = message.sender.displayName
         return NSAttributedString(
             string: name,
+            attributes: [
+                .font: UIFont.preferredFont(forTextStyle: .caption1),
+                .foregroundColor: UIColor(white: 0.3, alpha: 1)
+            ]
+        )
+    }
+    
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        let time = message.sentDate
+        let df = DateFormatter()
+        df.dateFormat = "hh:mm"
+        let timeStr = df.string(from: time)
+        return NSAttributedString(
+            string: timeStr,
             attributes: [
                 .font: UIFont.preferredFont(forTextStyle: .caption1),
                 .foregroundColor: UIColor(white: 0.3, alpha: 1)
