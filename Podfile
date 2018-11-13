@@ -11,6 +11,10 @@ target 'ScholarHighPrototype1' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
+  pod 'RealmSwift'
+  pod 'SwipeCellKit'
+  pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+
   post_install do |installer|
       installer.pods_project.targets.each do |target|
           if target.name == 'MessageKit'
